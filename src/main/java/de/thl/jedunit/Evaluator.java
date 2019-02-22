@@ -33,24 +33,24 @@ public class Evaluator {
     /**
      * The maximum points for a VPL assignment.
      */
-    private static final int MAX = 100;
+    protected static final int MAX = 100;
 
     /**
      * The currently reached percentage of maximum points.
      */
-    private double percentage = 0.0;
+    protected double percentage = 0.0;
 
     /**
      * The results of the latest executed testcase.
      */
-    private final List<Tuple2<Integer, Integer>> results = new LinkedList<>();
+    protected final List<Tuple2<Integer, Integer>> results = new LinkedList<>();
 
     /**
      * Test case counter.
      * Declared static to count testcases consecutively across
      * different Check classes.
      */
-    private static int testcase = 0;
+    protected static int testcase = 0;
 
     /**
      * Current points (truncated to [0, 100])

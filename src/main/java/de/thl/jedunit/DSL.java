@@ -157,9 +157,9 @@ public class DSL {
      */
     public static void comment(String c) {
         // if (c.contains("\n")) {
-        System.out.println("<|--");
+        //System.out.println("<|--");
         System.out.println(c);
-        System.out.println("--|>");
+        //System.out.println("--|>");
         // } else System.out.println("Comment :=>>" + c);
     }
 
@@ -450,11 +450,11 @@ public class DSL {
      * @return List of test data tuples
      * @deprecated Use {@link #test()} instead.
      */
-    @SafeVarargs
+    /*@SafeVarargs
     @Deprecated
     public static <T> List<T> testWith(T... ts) {
         return List.of(ts);
-    }
+    }*/
 
     /**
      * Parses a Java source file to generate an abstract syntax tree representation.
