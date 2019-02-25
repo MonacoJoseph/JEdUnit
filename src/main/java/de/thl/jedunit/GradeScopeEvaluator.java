@@ -1,5 +1,7 @@
 package de.thl.jedunit;
 
+import static de.thl.jedunit.DSL.*;
+
 import java.io.*;
 
 public class GradeScopeEvaluator extends Constraints {
@@ -11,6 +13,10 @@ public class GradeScopeEvaluator extends Constraints {
     public void grade() {
         File f = new File("/autograder/results/results.json");
 
+        try{
+            json.put("tests", ja);
+            json.put("score", this.getPoints()/10.0);
+        } catch(org.json.JSONException e) {}
         PrintWriter p = null;
         try {
             f.createNewFile();
@@ -18,7 +24,7 @@ public class GradeScopeEvaluator extends Constraints {
         } catch (IOException e) {
 
         }
-        p.write("{ \"score\":" + this.getPoints()/10.0 + "}");
+        p.write(json.toString());
         p.close();
     }
 }

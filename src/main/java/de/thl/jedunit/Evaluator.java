@@ -177,6 +177,7 @@ public class Evaluator {
      * Methods are executed according to their alphabetical order.
      */
     public final void runTests() {
+        comment("Begin Tests");
         allMethodsOf(this.getClass())
             .stream()
             .filter(method -> method.isAnnotationPresent(Test.class))
@@ -184,11 +185,11 @@ public class Evaluator {
             .forEach(method -> {
                 try {
                     Test t = method.getAnnotation(Test.class);
-                    comment(String.format("- [%.2f%%]: ", t.weight() * 100) + t.description());
+                    comment(String.format("[%.2f%%]: ", t.weight() * 100) + t.description());
                     results.clear();
                     method.invoke(this);
                     grade(t.weight(), results);
-                    comment("");
+                    //comment("");
                 } catch (Exception ex) {
                     comment("Test " + method.getName() + " failed completely." + ex);
                     grade();
@@ -202,6 +203,7 @@ public class Evaluator {
      * Methods are executed according to their alphabetical order.
      */
     public final void runInspections() {
+        comment("Begin Code Inspection");
         allMethodsOf(this.getClass())
             .stream()
             .filter(method -> method.isAnnotationPresent(Inspection.class))
@@ -210,10 +212,10 @@ public class Evaluator {
                 try {
                     results.clear();
                     Inspection i = method.getAnnotation(Inspection.class);
-                    comment("- " + i.description());
+                    comment("" + i.description());
                     method.invoke(this);
                     grade();
-                    comment("");
+                    //comment("");
                 } catch (Exception ex) {
                     comment("Inspection " + method.getName() + " failed completely." + ex);
                     grade();
@@ -233,7 +235,7 @@ public class Evaluator {
      */
     public final void checkstyle() {
         try {
-            comment("- Checkstyle");
+            comment("Begin Checkstyle");
             Scanner in = new Scanner(new File("checkstyle.log"));
             while (in.hasNextLine()) {
                 String result = in.nextLine();
@@ -267,11 +269,11 @@ public class Evaluator {
     public static final void main(String[] args) {
         try {
             Constraints check = (Constraints)Class.forName("Checks").getDeclaredConstructor().newInstance();
-            comment("JEdUnit " + Config.VERSION);
-            comment("");
+            //comment("JEdUnit " + Config.VERSION);
+            //comment("");
             check.configure();
             if (Config.CHECKSTYLE) check.checkstyle();
-            comment("");
+            //comment("");
             check.runInspections();
             check.runTests();
             comment(String.format("Finished: %d points", check.getPoints()));

@@ -1,5 +1,5 @@
 .gradle
-.idea
+.idea/
 
 /bin/
 /build/classes/
@@ -9,6 +9,8 @@
 /build/jacoco/
 /build/test-results/
 /build/tmp/
+classes/
+out/
 
 # Ignore Gradle GUI config
 gradle-app.setting

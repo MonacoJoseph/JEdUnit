@@ -31,6 +31,8 @@ import com.github.javaparser.ast.stmt.ReturnStmt;
 import com.github.javaparser.ast.stmt.WhileStmt;
 import com.mifmif.common.regex.Generex;
 
+import org.json.*;
+
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
 import io.vavr.Tuple3;
@@ -53,6 +55,9 @@ import io.vavr.Tuple8;
  * @author Nane Kratzke
  */
 public class DSL {
+
+    static JSONObject json = null;
+    static JSONArray ja = new JSONArray();
 
     /**
      * Random generator.
@@ -156,9 +161,20 @@ public class DSL {
      * Adds a comment for VPL via console output.
      */
     public static void comment(String c) {
+        if(json == null) {
+            json = new JSONObject();
+        }
+        JSONObject temp = new JSONObject();
         // if (c.contains("\n")) {
         //System.out.println("<|--");
-        System.out.println(c);
+        try {
+            temp.put("output", c);
+            ja.put(temp);
+        } catch(org.json.JSONException e) {
+            System.out.println("ERROR!");
+            System.out.println(c);
+        }
+
         //System.out.println("--|>");
         // } else System.out.println("Comment :=>>" + c);
     }
